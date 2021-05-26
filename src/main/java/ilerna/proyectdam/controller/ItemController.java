@@ -66,7 +66,6 @@ public class ItemController {
      *
      * @param id - Identificador de articulo
      * @return Item  -   articulo consultado
-     * @throws MyNotFoundException
      */
     @GetMapping("/articulos/{id}")
     ResponseEntity<Object> getItem(@PathVariable Integer id) {
