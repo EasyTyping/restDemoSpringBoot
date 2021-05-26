@@ -90,7 +90,7 @@ public class ClientController {
      * recibe como parametro
      *
      * @param id del Cliente a eliminar
-     * @return message: "No class ilerna.proyectdam.service.datamodel.Client entity with id 1 exists!"
+     * @return  si falla se devuelve: "No class ilerna.proyectdam.service.datamodel.Client entity with id 1 exists!"
      */
     @DeleteMapping("/clientes/{id}")
     public void deleteClient(@PathVariable Integer id) { service.deleteById(id); }

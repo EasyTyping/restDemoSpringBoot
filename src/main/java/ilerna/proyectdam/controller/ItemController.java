@@ -31,7 +31,7 @@ import java.util.Optional;
 @RestController
 public class ItemController {
 
-    private static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
+    private final static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
     @Autowired
     private ItemServ service;
 
@@ -121,7 +121,7 @@ public class ItemController {
      *                                      no se devuelve la informacion completa del error generado por la validacion de Hibenate,
      *                                      en su lugar se lanza una Excepcion personalizada con Status 422 y con el mensaje de Error establecido,
      *                                      para que sea procesada por el articulo del servicio
-     * @throws MyNotFoundException          excepcion lanzada cuando no se encuentra el articulo que se desea actualizar
+     * @throws MyNotFoundException   excepcion lanzada cuando no se encuentra el articulo que se desea actualizar
      */
     @PutMapping("/articulos/{id}")
     ResponseEntity<Object> replaceItem(@Valid @RequestBody Item newItem, BindingResult result,
