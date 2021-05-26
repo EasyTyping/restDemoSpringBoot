@@ -51,7 +51,6 @@ public class ClientController {
      *
      * @param id - Identificador de Cliente
      * @return Client  -   Cliente consultado
-     * @throws MyNotFoundException
      */
     @GetMapping("/clientes/{id}")
     public ResponseEntity<Object> getClient(@PathVariable Integer id) {
