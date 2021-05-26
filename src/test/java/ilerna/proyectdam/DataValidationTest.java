@@ -64,11 +64,12 @@ public class DataValidationTest {
 
     /** Se testean los campos obligatorios de las Entidades Item
             precioUnidad : El articulo debe tener un precio por unidad
-            nombreArticulo : El nombre del articulo es obligatorio*/
+            nombreArticulo : El nombre del articulo es obligatorio*
+            stock : El stock no puede estar vacio, tiene que contener  0 unidades*/
     @Test
     void checkItemNotBlankFields()  {
         Set<ConstraintViolation<Item>> violations = validator.validate(new Item());
-        Assertions.assertEquals(2, violations.size());
+        Assertions.assertEquals(3, violations.size());
         violations.forEach(v -> LOG.warn(
                 v.getPropertyPath() + " : " + v.getMessageTemplate() ));
     }
