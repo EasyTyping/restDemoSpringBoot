@@ -30,7 +30,7 @@ import java.util.List;
 @RestController
 public class OrderController {
 
-    private static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
+    private final static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
     @Autowired //interfaz de la capa de servicio que hace de fachada
     private OrderServ service;
 
@@ -48,7 +48,6 @@ public class OrderController {
      * Establece el endpoint que recibe y procesa las peticiones Get de consulta de un pedido por su id
      * @param id - Identificador de pedido
      * @return ResponseEntity:  Order  -   pedido consultado
-     * @throws MyNotFoundException
      */
     @GetMapping("/pedidos/{id}")
     ResponseEntity<Object> getOrder(@PathVariable Integer id) {
@@ -120,10 +119,9 @@ public class OrderController {
                         LOG.info("Se ha actualizado el pedido con id: " + id);
                         return service.save(Order);
                     }).orElseThrow(() -> new MyNotFoundException("No se encuentra al pedido con id " + id));
-
+            return ResponseEntity.status(HttpStatus.OK).body("El cliente con id " + id + " se ha modificado correctamente");
         } catch (DataIntegrityViolationException e) {
             throw new UnprocessableEntityException(e.getRootCause().getMessage());
         }
-        return ResponseEntity.ok(Boolean.TRUE);
     }
 }

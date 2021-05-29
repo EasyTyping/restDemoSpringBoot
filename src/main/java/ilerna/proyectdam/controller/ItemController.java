@@ -82,7 +82,7 @@ public class ItemController {
      * @throws UnprocessableEntityException En caso de que los datos no cumplan con el formato indicado en las anotaciones,
      *                                      no se devuelve la informacion completa del error generado por la validacion de Hibenate,
      *                                      en su lugar se lanza una Excepcion personalizada con Status 422 y con el mensaje de Error establecido,
-     *                                      para que sea procesada por el articulo del servicio
+     *                                      para que sea procesada por el cliente del servicio
      */
     @PostMapping("/articulos")
     ResponseEntity<Object> newItem(@Valid @RequestBody Item newItem, BindingResult result) throws UnprocessableEntityException {
@@ -136,13 +136,13 @@ public class ItemController {
                         Item.setStock(newItem.getStock());
                         Item.setPrecioUnidad(newItem.getPrecioUnidad());
                         LOG.info("Se ha actualizado el articulo con id: " + id);
-                        service.save(Item);
-                        return ResponseEntity.status(HttpStatus.OK).body("El cliente se ha actualizado");
+                        return service.save(Item);
                     })
                     .orElseThrow(() -> new MyNotFoundException("No se encuentra el artículo con id " + id));
+            return ResponseEntity.status(HttpStatus.OK).body("El cliente se ha actualizado");
         } catch (DataIntegrityViolationException e) {
             throw new UnprocessableEntityException(e.getRootCause().getMessage());
         }
-        return ResponseEntity.ok(Boolean.TRUE);
     }
+
 }

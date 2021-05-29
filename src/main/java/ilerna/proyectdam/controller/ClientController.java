@@ -31,7 +31,7 @@ import java.util.List;
 @RestController
 public class ClientController {
 
-    private static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
+    private final static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
     @Autowired //interfaz de la capa de servicio que hace de fachada
     private ClientServ service;
 

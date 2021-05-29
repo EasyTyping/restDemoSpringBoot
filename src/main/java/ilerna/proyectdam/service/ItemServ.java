@@ -10,6 +10,6 @@ public interface ItemServ {
     List<Item> findAll();
     Optional<Item> findByNombreArticulo(String itemName);
     Optional<Item> findById(Integer id);
-    Item save(Item i);
+    Item save(Item item);
     void deleteById(Integer id);
 }
