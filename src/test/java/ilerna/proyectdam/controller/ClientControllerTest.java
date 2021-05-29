@@ -74,6 +74,7 @@ public class ClientControllerTest {
     }
 
     @Test
+    @DisplayName("Deberia modificarse el cliente")
     void testReplaceClient() throws Exception {
 
         int id=1;
@@ -156,7 +157,9 @@ public class ClientControllerTest {
         ).andExpect(status().is4xxClientError()).andReturn();
 
         assertThat(HttpStatus.UNPROCESSABLE_ENTITY.value()).isEqualTo(result.getResponse().getStatus());
+        LOG.info("Status de la Respuesta: " + result.getResponse().getStatus());
         assertThat(UnprocessableEntityException.class).isEqualTo(result.getResolvedException().getClass());
+        LOG.info("Excepcion de la Respuesta: " + result.getResolvedException().getClass());
         assertThat("Formato incorrecto de DNI").isEqualTo(result.getResolvedException().getMessage());
     }
 
@@ -174,7 +177,9 @@ public class ClientControllerTest {
         ).andExpect(status().is4xxClientError()).andReturn();
 
         assertThat(HttpStatus.NOT_FOUND.value()).isEqualTo(result.getResponse().getStatus());
+        LOG.info("Status de la Respuesta: " + result.getResponse().getStatus());
         assertThat(MyNotFoundException.class).isEqualTo(result.getResolvedException().getClass());
+        LOG.info("Excepcion de la Respuesta: " + result.getResolvedException().getClass());
         assertThat("No se encuentra al cliente con id " + idClient).isEqualTo(result.getResolvedException().getMessage());
     }
 

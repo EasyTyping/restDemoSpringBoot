@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 class ItemControllerTest {
 
-    private static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
+    private final static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
 
     private static final String URL = "/articulos";
 
@@ -38,13 +38,6 @@ class ItemControllerTest {
     ObjectMapper mapper;
     @MockBean
     ItemServ service;
-
-   /* @BeforeEach
-    void saveOneItem() throws SQLException {
-        System.out.println("BEFORE EACH ID 6");
-        repo.save(new Item(6,"Pato", "Donald", "43755589D",
-                "Calle AstraZeneca", "disney@gamil.com", 928928928));
-    }*/
 
     @Test
     @DisplayName("Testeando endpoint para crear un nuevo articulo")

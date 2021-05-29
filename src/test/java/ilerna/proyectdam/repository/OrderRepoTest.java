@@ -30,10 +30,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 
 /** Configuracion para usar la bd en el disco en lugar de en memoria */
-// Para que no se reemplace la configuracion del "application-test.properties"
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(value = false) //Asi evitamos el RollBack para que los cambios se reflejen en la BD si la usamos en disco
-@ActiveProfiles("test")
+//@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)// Para que no se reemplace la configuracion del "application-test.properties"
+//@Rollback(value = false) //Asi evitamos el RollBack para que los cambios se reflejen en la BD si la usamos en disco
+//@ActiveProfiles("test")
+
 @DataJpaTest
 public class OrderRepoTest {
 

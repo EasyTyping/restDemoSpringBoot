@@ -8,9 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import java.util.Optional;
@@ -33,15 +32,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /** Configuracion para usar la bd en el disco en lugar de en memoria */
 // Para que no se reemplace la configuracion del "application-test.properties"
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(value = false) //Asi evitamos el RollBack para que los cambios se reflejen en la BD si la usamos en disco
-@ActiveProfiles("test")
+//@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
+//@Rollback(value = false) //Asi evitamos el RollBack para que los cambios se reflejen en la BD si la usamos en disco
+//@ActiveProfiles("test")
+
 @DataJpaTest
 public class ItemRepoTest {
 
     private static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
 
-     Item itemSaved;
+    Item itemSaved;
     Optional<Item> item;
     @Autowired
     private ItemRepo repo;
@@ -83,20 +83,7 @@ public class ItemRepoTest {
         assertThat(itemModificado.get()).usingRecursiveComparison().ignoringFields("idArticulo").isEqualTo(newItem);
     }
 
-    /**
-     * Test que comprueba que se realizan inserciones correctamente por medio de sentencias SQL. Mirar: resources->test-datos.sql
-     * WARNING: hay que configurar el SGBD H2 en aplication.properties para que interprete los nombres de las tablas en minusculas:
-     * spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.datamodel.naming.PhysicalNamingStrategyStandardImpl
-     */
-    @Test
-    @Sql("classpath:test-datos.sql")
-    public void savedFromSql() {
-        Optional<Item> test = repo.findByNombreArticulo("Nike VARSITY COMPETE TR 3");
-        assertThat(test).isNotEmpty();
-        LOG.info(test.get().getNombreArticulo());
-    }
-
-    /**
+     /**
      * Se testea que se borre un articulo correctamente dado un numero de id
      */
     @Test

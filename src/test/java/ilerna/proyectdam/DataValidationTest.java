@@ -30,7 +30,7 @@ public class DataValidationTest {
      * email : El email es obligatorio
      * dni : El DNI es obligatorio */
     @Test
-    void checkClientNotBlankFields()  {
+    void checkNotBlankFields()  {
 
         Set<ConstraintViolation<Client>> violations = validator.validate(new Client());
         Assertions.assertEquals(3, violations.size());
@@ -49,7 +49,7 @@ public class DataValidationTest {
      * apellidos : El apellido supera los 50 caracteres
      */
     @Test
-    public void checkDataClientFields() {
+    public void checkDataFieldsViolations() {
 
         Set<ConstraintViolation<Client>> violations = validator.validate(new Client("12",
                 "ERROR01234567890123456789012345678901234567890123456789",
