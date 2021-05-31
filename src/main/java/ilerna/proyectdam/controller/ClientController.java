@@ -117,7 +117,7 @@ public class ClientController {
                         .map(Client -> {
                             Client.setNombre(newClient.getNombre());
                             Client.setApellidos(newClient.getApellidos());
-                            Client.setDni(newClient.getDni());
+                            Client.setNif(newClient.getNif());
                             Client.setDireccion(newClient.getDireccion());
                             Client.setEmail(newClient.getEmail());
                             Client.setTlfno(newClient.getTlfno());

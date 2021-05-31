@@ -40,10 +40,11 @@ public class Client implements Serializable {
     @Column(name = "apellidos", length = 50)
     @Size(max = 50, message = "El tamaño del campo apellidos no cumple los requisitos, max=50")
     private String apellidos;
-    @Column(name = "dni", length = 9, unique = true)
-    @Pattern(regexp = "^[0-9]{8}[-]?[A-Z]{1}$", message = "Formato incorrecto de DNI")
-    @NotBlank(message = "El DNI es obligatorio")
-    private String dni;
+    @Column(name = "nif", length = 9, unique = true)
+   // @Pattern(regexp = "^[0-9]{8}[-]?[A-Z]{1}$", message = "Formato incorrecto de DNI")
+    @Pattern(regexp = "^[a-zA-Z0-9]{1}\\d{7}[a-zA-Z]{1}$", message = "Formato incorrecto de NIF")
+    @NotBlank(message = "El NIF es obligatorio")
+    private String nif;
     @Column(name = "direccion", length = 50)
     private String direccion;
     @Column(name = "email", length = 50, unique = true, nullable = false)
@@ -56,21 +57,21 @@ public class Client implements Serializable {
     public Client() { }
 
     //Constructores para el testing
-    public Client(String nombre, String apellidos, String dni, String direccion,
-                   String email, Integer tlfno) {
+    public Client(String nombre, String apellidos, String nif, String direccion,
+                  String email, Integer tlfno) {
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.dni = dni;
+        this.nif = nif;
         this.direccion = direccion;
         this.email = email;
         this.tlfno = tlfno;
     }
 
-    public Client(Integer idCliente, String nombre, String apellidos, String dni, String direccion, String email, Integer tlfno) {
+    public Client(Integer idCliente, String nombre, String apellidos, String nif, String direccion, String email, Integer tlfno) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.dni = dni;
+        this.nif = nif;
         this.direccion = direccion;
         this.email = email;
         this.tlfno = tlfno;
@@ -93,12 +94,12 @@ public class Client implements Serializable {
         this.apellidos = apellidos;
     }
 
-    public String getDni() {
-        return dni;
+    public String getNif() {
+        return nif;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 
     public String getDireccion() {
@@ -147,7 +148,7 @@ public class Client implements Serializable {
                 "idCliente=" + idCliente +
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
-                ", dni='" + dni + '\'' +
+                ", nif='" + nif + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", email='" + email + '\'' +
                 ", tlfno=" + tlfno +

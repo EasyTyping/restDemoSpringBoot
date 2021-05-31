@@ -49,7 +49,7 @@ public class ClientControllerTest {
 
     @BeforeEach
     void saveOneClient() throws SQLException {
-        repo.save(new Client("Pato", "Donald", "43755589D",
+        repo.save(new Client("Pato", "Donald", "A4375589D",
                 "Calle AstraZeneca", "disney@gamil.com", 928928928));
     }
 
@@ -57,7 +57,7 @@ public class ClientControllerTest {
     @DisplayName("Creacion de un nuevo cliente")
     void testNewClient() throws Exception {
 
-        Client client = new Client("Klark", "Kent", "43786489D",
+        Client client = new Client("Klark", "Kent", "B4378648D",
                 "Adva de los krypton n 12  38006", "superman@gamil.com", 822822822);
 
         MvcResult result = mockMvc.perform(
@@ -79,9 +79,9 @@ public class ClientControllerTest {
 
         int id=1;
 
-        Client client = new Client("Peter", "Parker", "43786489D",
+        Client client = new Client("Peter", "Parker", "A4378648D",
                 "Calle peticion put", "spiderman@gamil.com", 822822822);
-        Client client2 = new Client("Pan", "Parker", "43786489D",
+        Client client2 = new Client("Pan", "Parker", "B3786489D",
                 "La direccion ha sido cambiada", "spiderman@gamil.com", 822822822);
 
         Mockito.when(service.save(client)).thenReturn(client2);
@@ -141,13 +141,13 @@ public class ClientControllerTest {
      * y que contiene una excepcion UnprocessableEntityException, cuando alguno de los datos
      * de la solicitud del cliente no es valido.
      * En el concreto caso realizamos una peticion de tipo POST para crear un nuevo cliente,
-     * que contiene un dni no valido al no tener letra. Podemos modificar el dato
+     * que contiene un nif no valido al no tener letra final. Podemos modificar el dato
      * no valido obteniendo la misma respuesta, por lo que con este test podemos probar todos los casos
      */
     @Test
     @DisplayName("Respuesta de error 422")
     void requestUnprocessableEntity() throws Exception {
-        Client client = new Client("Klark", "Kent", "43786489",
+        Client client = new Client("Klark", "Kent", "87864892",
                 "Adva de los krypton n 12  38006", "superman@gamil.com", 822822822);
 
         MvcResult result = mockMvc.perform(
@@ -160,7 +160,7 @@ public class ClientControllerTest {
         LOG.info("Status de la Respuesta: " + result.getResponse().getStatus());
         assertThat(UnprocessableEntityException.class).isEqualTo(result.getResolvedException().getClass());
         LOG.info("Excepcion de la Respuesta: " + result.getResolvedException().getClass());
-        assertThat("Formato incorrecto de DNI").isEqualTo(result.getResolvedException().getMessage());
+        assertThat("Formato incorrecto de NIF").isEqualTo(result.getResolvedException().getMessage());
     }
 
     /**

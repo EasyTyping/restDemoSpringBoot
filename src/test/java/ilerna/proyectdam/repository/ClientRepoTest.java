@@ -8,10 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
@@ -50,7 +47,7 @@ public class ClientRepoTest {
     //Solo en ejecucion con Rollback = true, en otro caso rechazara el DNI al estar repetido
     @BeforeEach
     void saveOneClient(){
-        clientSaved = repo.save(new Client("Sheldon", "Cooper", "43753489D",
+        clientSaved = repo.save(new Client("Sheldon", "Cooper", "F3753893D",
                 "Avda Las Rosas", "sheldon@gamil.com", 928928928));
     }
 
@@ -73,13 +70,13 @@ public class ClientRepoTest {
     @DisplayName("Deberia modificarse el cliente cuyo id es dado")
     public void shouldClientChanged() {
 
-        Client newClient = new Client("Peter", "Parker", "43755589D",
+        Client newClient = new Client("Peter", "Parker", "G2755589D",
                 "Calle la que sea", "spiderman@gamil.com", 928928928);
 
         Optional<Client> clientModificado = repo.findById(clientSaved.getIdCliente())
                 .map(Client -> {
                     Client.setNombre(newClient.getNombre());
-                    Client.setDni(newClient.getDni());
+                    Client.setNif(newClient.getNif());
                     Client.setApellidos(newClient.getApellidos());
                     Client.setDireccion(newClient.getDireccion());
                     Client.setEmail(newClient.getEmail());

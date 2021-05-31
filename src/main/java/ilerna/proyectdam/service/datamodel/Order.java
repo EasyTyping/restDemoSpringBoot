@@ -32,6 +32,7 @@ public class Order implements Serializable {
     @DateTimeFormat
     @FutureOrPresent(message = "La fecha del pedido no puede ser anterior a hoy")
     @JsonFormat (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @NotNull
     @Column
     private LocalDate fecha;
     @Column
