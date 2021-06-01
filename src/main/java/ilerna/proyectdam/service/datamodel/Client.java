@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * Entidad de persistencia para la tabla clientes
- *
  * @author Jose F. Bejarano
  * @since 2020
  */

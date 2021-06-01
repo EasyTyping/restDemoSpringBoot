@@ -20,13 +20,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Controlador del servicio Res para la clase Order
+ * Controlador del servicio Rest para la clase Order
  * Atiende y procesa las peticiones Res de consulta, creacion, modificacion y borrado
  * que tengan que ver con los pedidos
  * @author Jose F. Bejarano
  * @since 2021
  */
-
 @RestController
 public class OrderController {
 

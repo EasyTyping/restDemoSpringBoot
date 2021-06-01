@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Controlador del servicio Res para la clase Client
+ * Controlador del servicio Rest para la clase Client
  * Atiende y procesa las peticiones Res de consulta, creacion, modificacion y borrado
  * que tengan que ver con los clientes de la empresa
  *
@@ -37,7 +37,6 @@ public class ClientController {
 
     /**
      * Atiende las solicitudes de la lista completa de los clientes
-     *
      * @return Lista de todos los clientes
      */
     @GetMapping("/clientes")
@@ -48,7 +47,6 @@ public class ClientController {
 
     /**
      * Atiende las peticiones Get de consulta de un Cliente por su id
-     *
      * @param id - Identificador de Cliente
      * @return Client  -   Cliente consultado
      */
@@ -87,7 +85,6 @@ public class ClientController {
     /**
      * Se encarga de atender las peticiones delete y borrar el Cliente cuyo id
      * recibe como parametro
-     *
      * @param id del Cliente a eliminar
      * @return  si falla se devuelve: "No class ilerna.proyectdam.service.datamodel.Client entity with id 1 exists!"
      */
