@@ -54,9 +54,16 @@ public class OrderRepoTest {
     @DisplayName("Deberia haberse creado un pedido")
     public void shouldorderSaved() {
         assertNotNull(orderSaved);
+
+    }
+
+    @Test
+    @DisplayName("Deberia consultarse un art por su id")
+    public void findById(){
         order = repo.findById(orderSaved.getIdPedido());
         assertThat(orderSaved).usingRecursiveComparison().isEqualTo(order.get());
     }
+
 
     /**
      * Se comprueba que el articulo se modifique corrrectamente

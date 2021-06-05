@@ -3,8 +3,8 @@ package ilerna.proyectdam.controller;
 import ilerna.proyectdam.ProyectoFinalApplication;
 import ilerna.proyectdam.exceptions.MyNotFoundException;
 import ilerna.proyectdam.exceptions.UnprocessableEntityException;
-import ilerna.proyectdam.service.datamodel.Item;
 import ilerna.proyectdam.service.ItemServ;
+import ilerna.proyectdam.service.datamodel.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class ItemController {
      * @return Objeto de la clase Item que contiene el articulo cuyo nombre se busca
      */
     @GetMapping("/articulo/{name}")
-    Optional<Item> findByNombreArticulo(@PathVariable String name) {
+    Optional<Item> findByItemName(@PathVariable String name) {
         return service.findByNombreArticulo(name);
     }
 
@@ -120,7 +121,7 @@ public class ItemController {
      *                                      no se devuelve la informacion completa del error generado por la validacion de Hibenate,
      *                                      en su lugar se lanza una Excepcion personalizada con Status 422 y con el mensaje de Error establecido,
      *                                      para que sea procesada por el articulo del servicio
-     * @throws MyNotFoundException   excepcion lanzada cuando no se encuentra el articulo que se desea actualizar
+     * @throws MyNotFoundException          excepcion lanzada cuando no se encuentra el articulo que se desea actualizar
      */
     @PutMapping("/articulos/{id}")
     ResponseEntity<Object> replaceItem(@Valid @RequestBody Item newItem, BindingResult result,

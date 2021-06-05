@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 /**
  * Entidad de persistencia para la tabla de Articulos
@@ -23,6 +24,7 @@ public class Item implements java.io.Serializable {
 
     @Column(length = 50)
     @NotBlank( message = "El nombre del articulo es obligatorio")
+   //@Pattern(regexp = "", message = "No se permiten caracteres especiales")
     private String nombreArticulo;
     @Column
     private String descripcion;

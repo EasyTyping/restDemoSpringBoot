@@ -33,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ClientController.class)
 @ActiveProfiles("test")
+@DisplayName("Testeando endpoints en ClientController")
 public class ClientControllerTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
@@ -69,8 +70,7 @@ public class ClientControllerTest {
         assertThat("El cliente se ha creado correctamente").isEqualTo(result.getResponse().getContentAsString());
 
         LOG.info(result.getResponse().getContentAsString());
-        //    LOG.info(String.valueOf(result.getResolvedException()));
-        LOG.info(String.valueOf(result.getResponse().getStatus()));
+        LOG.info("Status http de la respuesta" + String.valueOf(result.getResponse().getStatus()));
     }
 
     @Test
@@ -182,6 +182,9 @@ public class ClientControllerTest {
         LOG.info("Excepcion de la Respuesta: " + result.getResolvedException().getClass());
         assertThat("No se encuentra al cliente con id " + idClient).isEqualTo(result.getResolvedException().getMessage());
     }
+
+
+
 
 }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ilerna.proyectdam.ProyectoFinalApplication;
 import ilerna.proyectdam.exceptions.MyNotFoundException;
 import ilerna.proyectdam.exceptions.UnprocessableEntityException;
+import ilerna.proyectdam.service.datamodel.Item;
 import ilerna.proyectdam.service.datamodel.Order;
 import ilerna.proyectdam.repository.OrderRepo;
 import ilerna.proyectdam.service.OrderServ;
@@ -31,6 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(OrderController.class)
+@DisplayName("Testeando endpoints en OrderController")
 class OrderControllerTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
@@ -45,13 +47,8 @@ class OrderControllerTest {
     @MockBean
     OrderServ service;
 
-    @BeforeEach
-    void saveOneOrder() throws SQLException {
-        repo.save(new Order(LocalDate.now(), 23.4f, 21f, 3567.5f));
-    }
-
     @Test
-    @DisplayName("Creacion de un nuevo pedido")
+    @DisplayName("Crear nuevo pedido")
     void newOrder() throws Exception {
 
         Order order = new Order(LocalDate.now(), 23.4f, 19f, 200.8f);
@@ -70,7 +67,7 @@ class OrderControllerTest {
     }
 
     @Test
-    @DisplayName("Solicitando lista de pedidos")
+    @DisplayName("Consultar lista de pedidos")
     void getOrderList() throws Exception {
 
         List<Order> orderList = new ArrayList<>();
@@ -93,10 +90,33 @@ class OrderControllerTest {
         LOG.info("Status de la Respuesta: " + result.getResponse().getStatus());
     }
 
+    @Test
+    @DisplayName("Consultar art por su id")
+    void getOrderById() throws Exception {
+
+        Order order = new Order(LocalDate.now(), 23.4f, 19f, 200.8f);
+        Integer id=1;
+
+        Mockito.when(service.findById(id)).thenReturn(java.util.Optional.of(order));
+
+        //  RequestBuilder request = MockMvcRequestBuilders.get(URL);
+        MvcResult result = mockMvc.perform(get(URL+"/"+ id)).andExpect(status().isOk()).andReturn();
+        String actualResponse = result.getResponse().getContentAsString();
+        LOG.info(actualResponse);
+
+        String expectedJsonResponse = mapper.writeValueAsString(java.util.Optional.of(order));
+        LOG.info(expectedJsonResponse);
+
+        assertThat(actualResponse).isEqualToIgnoringWhitespace(expectedJsonResponse);
+        LOG.info("Status de la Respuesta: " + result.getResponse().getStatus());
+        LOG.info("Se ha obtenido el articulo con id: "+ id);
+    }
+
 
     @Test
     @DisplayName("Borrar pedido por su id")
     void deleteOrder() throws Exception {
+        repo.save(new Order(LocalDate.now(), 23.4f, 21f, 3567.5f));
         Integer idOrder = 1;
         Mockito.doNothing().when(service).deleteById(idOrder);
         mockMvc.perform(delete(URL + "/" + idOrder)).andExpect(status().isOk());

@@ -49,7 +49,7 @@ public class OrderController {
      * @return ResponseEntity:  Order  -   pedido consultado
      */
     @GetMapping("/pedidos/{id}")
-    ResponseEntity<Object> getOrder(@PathVariable Integer id) {
+    ResponseEntity<Object> getOrderById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.findById(id)
                 .orElseThrow(() -> new MyNotFoundException("No se encuentra el pedido con id " + id)));
     }

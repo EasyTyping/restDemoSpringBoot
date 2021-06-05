@@ -58,6 +58,12 @@ public class ItemRepoTest {
     @DisplayName("Deberia haberse creado un articulo")
     public void shouldItemSaved() {
         assertNotNull(itemSaved);
+    }
+
+
+    @Test
+    @DisplayName("Deberia consultarse un art por su id")
+    public void findById(){
         item = repo.findById(itemSaved.getIdArticulo());
         assertThat(itemSaved).usingRecursiveComparison().isEqualTo(item.get());
     }

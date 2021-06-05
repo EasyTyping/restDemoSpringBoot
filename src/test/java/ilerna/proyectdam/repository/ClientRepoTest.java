@@ -59,6 +59,11 @@ public class ClientRepoTest {
     @DisplayName("Deberia haberse creado un nuevo cliente")
     public void shouldClientSaved() {
         assertNotNull(clientSaved);
+    }
+
+    @Test
+    @DisplayName("Deberia consultarse un cliente por su id")
+    public void findById(){
         cliente= repo.findById(clientSaved.getIdCliente());
         assertThat(clientSaved).usingRecursiveComparison().isEqualTo(cliente.get());
     }
