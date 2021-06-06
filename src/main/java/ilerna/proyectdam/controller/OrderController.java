@@ -85,8 +85,12 @@ public class OrderController {
      * @param id del pedido a eliminar
      */
     @DeleteMapping("/pedidos/{id}")
-    void deleteOrder(@PathVariable Integer id) throws EmptyResultDataAccessException {
-        service.deleteById(id);
+    void  deleteOrder(@PathVariable Integer id) throws MyNotFoundException {
+        try {
+            service.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new MyNotFoundException("No hay nada que borrar, la entidad con id "+ id + " no existe");
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ import ilerna.proyectdam.repository.OrderRepo;
 import ilerna.proyectdam.service.datamodel.OrderLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,7 @@ public class OrderServImpl implements OrderServ {
     }
 
     @Override
-    public void deleteById(Integer id) {repo.deleteById(id); }
+    public void deleteById(Integer id)  {
+            repo.deleteById(id);
+    }
 }
