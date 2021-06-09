@@ -61,20 +61,6 @@ public class Order implements Serializable {
     //*****************Constructores**************
     public Order() {
     }
-
-    public Order(Float total, Client cliente, LocalDate fecha) {
-        this.total = total;
-        this.cliente = cliente;
-        this.fecha = fecha;
-    }
-
-    public Order(LocalDate fecha, Float ivaPedido, Float porcentajeIva, Float total) {
-        this.fecha = fecha;
-        this.ivaPedido=ivaPedido;
-        this.porcentajeIva = porcentajeIva;
-        this.total = total;
-    }
-
     public Order(LocalDate fecha, Float ivaPedido, Float porcentajeIva, Float total, Client cliente, List<OrderLine> lineasPedido) {
         this.fecha = fecha;
         this.ivaPedido = ivaPedido;
@@ -83,7 +69,18 @@ public class Order implements Serializable {
         this.cliente = cliente;
         this.lineasPedido = lineasPedido;
     }
-
+    //Testing
+    public Order(Float total, Client cliente, LocalDate fecha) {
+        this.total = total;
+        this.cliente = cliente;
+        this.fecha = fecha;
+    }
+    public Order(LocalDate fecha, Float ivaPedido, Float porcentajeIva, Float total) {
+        this.fecha = fecha;
+        this.ivaPedido=ivaPedido;
+        this.porcentajeIva = porcentajeIva;
+        this.total = total;
+    }
     public Order(Float total, Client cliente, List<OrderLine> lineasPedido) {
         this.total = total;
         this.cliente = cliente;

@@ -21,7 +21,8 @@ public class Client implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENTS_SEQ")
+    @SequenceGenerator(name="CLIENTS_SEQ", initialValue = 6)
     private Integer idCliente; //PK
     //Relacion 1...N
     //Con "cascade = CascadeType.ALL" el JPARepository no procesa el deleteById para los pedidos

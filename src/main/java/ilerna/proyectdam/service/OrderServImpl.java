@@ -23,6 +23,7 @@ public class OrderServImpl implements OrderServ {
     private OrderRepo repo;
     @Autowired
     private ItemRepo repoItem;
+    List<OrderLine> orderLineList;
 
     @Override
     public List<Order> findAll() {
@@ -36,17 +37,25 @@ public class OrderServImpl implements OrderServ {
 
     @Override
     public Order save(Order o) {
-        List<OrderLine> orderLineList= o.getLineasPedido();
-        for(OrderLine line : orderLineList){
-               Item item= repoItem.findById(line.getArticulo().getIdArticulo()).get();
-               item.setStock(line.getArticulo().getStock());
-               repoItem.save(item);
-        }
+         orderLineList= o.getLineasPedido();
+        for(OrderLine line : orderLineList)
+            repoItem.save(line.getArticulo());
         return repo.save(o);
     }
 
     @Override
     public void deleteById(Integer id)  {
-            repo.deleteById(id);
+        Optional<Order> optionalOrder= findById(id);
+        Order order= optionalOrder.get();
+        orderLineList= order.getLineasPedido();
+        for(OrderLine line : orderLineList){
+            Item item= repoItem.findById(line.getArticulo().getIdArticulo()).get();//Optional<>
+//            System.out.println("Linea Cantidad: "+ line.getCantidad());
+//            System.out.println("Articulo: "+ item.getNombreArticulo() + "| Stock: " + item.getStock());
+            item.setStock(item.getStock() + line.getCantidad());
+            repoItem.save(item);
+        }
+        repo.deleteById(id);
     }
+
 }

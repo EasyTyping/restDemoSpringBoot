@@ -146,7 +146,9 @@ class OrderControllerTest {
         ).andExpect(status().is4xxClientError()).andReturn();
 
         assertThat(HttpStatus.UNPROCESSABLE_ENTITY.value()).isEqualTo(result.getResponse().getStatus());
+        LOG.warn("Status http de la respuesta: "+ result.getResponse().getStatus());
         assertThat(UnprocessableEntityException.class).isEqualTo(result.getResolvedException().getClass());
+        LOG.warn("Tipo de excepcion: " + result.getResolvedException().getClass());
         assertThat("La fecha del pedido no puede ser anterior a hoy").isEqualTo(result.getResolvedException().getMessage());
     }
 
@@ -166,5 +168,6 @@ class OrderControllerTest {
         assertThat(HttpStatus.NOT_FOUND.value()).isEqualTo(result.getResponse().getStatus());
         assertThat(MyNotFoundException.class).isEqualTo(result.getResolvedException().getClass());
         assertThat("No se encuentra el pedido con id " + idOrder).isEqualTo(result.getResolvedException().getMessage());
+        LOG.info(result.getResolvedException().getMessage());
     }
 }

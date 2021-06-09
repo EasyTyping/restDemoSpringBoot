@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -176,16 +178,12 @@ public class ClientControllerTest {
                 get(URL + "/" + idClient)
         ).andExpect(status().is4xxClientError()).andReturn();
 
-        assertThat(HttpStatus.NOT_FOUND.value()).isEqualTo(result.getResponse().getStatus());
+        assertEquals(HttpStatus.NOT_FOUND.value(), result.getResponse().getStatus());
         LOG.info("Status de la Respuesta: " + result.getResponse().getStatus());
         assertThat(MyNotFoundException.class).isEqualTo(result.getResolvedException().getClass());
         LOG.info("Excepcion de la Respuesta: " + result.getResolvedException().getClass());
         assertThat("No se encuentra al cliente con id " + idClient).isEqualTo(result.getResolvedException().getMessage());
     }
-
-
-
-
 }
 
 

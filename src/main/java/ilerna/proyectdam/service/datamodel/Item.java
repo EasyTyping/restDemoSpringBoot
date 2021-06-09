@@ -19,7 +19,8 @@ import java.util.List;
 public class Item implements java.io.Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator = "ITEMS_SEQ")
+    @SequenceGenerator(name="ITEMS_SEQ", initialValue = 8)
     private Integer idArticulo;
 
     @Column(length = 50)
@@ -45,7 +46,7 @@ public class Item implements java.io.Serializable {
 
     public Item() {
     }
-
+//Testing
     public Item(String nombreArticulo, String descripcion, Float precioUnidad, Integer stock) {
         this.nombreArticulo = nombreArticulo;
         this.descripcion = descripcion;
@@ -54,8 +55,6 @@ public class Item implements java.io.Serializable {
     }
 
     //**********Getters & setters***************
-
-
     public List<OrderLine> getLineas() {
         return lineas;
     }
