@@ -31,6 +31,7 @@ public class ClientServImpl implements ClientServ {
 
     @Override
     public void deleteById(Integer id) {
+        System.out.println(">>>>>>>>>>>>> Borrando cliente");
         repo.deleteById(id);
     }
 }
