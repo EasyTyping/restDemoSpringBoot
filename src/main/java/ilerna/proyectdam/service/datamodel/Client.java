@@ -1,5 +1,6 @@
 package ilerna.proyectdam.service.datamodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -27,9 +28,10 @@ public class Client implements Serializable {
     //Relacion 1...N
     //Con "cascade = CascadeType.ALL" el JPARepository no procesa el deleteById para los pedidos
     //En las relaciones OneToMany y ManyToMany el Fetch por defecto es LAZY, no en los otros tipos de relaciones
-    @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnoreProperties("cliente")
+  //  @JsonIgnoreProperties("cliente")
+    @JsonIgnore
     private List<Order> listaPedidos;
 
 
