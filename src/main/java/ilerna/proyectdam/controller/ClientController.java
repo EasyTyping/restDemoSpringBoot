@@ -26,13 +26,14 @@ import java.util.List;
  * @author Jose F. Bejarano
  * @version 1.0
  * @since 2021
+ * Test Github
  */
 
 @RestController
 public class ClientController {
 
     private final static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
-    @Autowired //interfaz de la capa de servicio que hace de fachada
+    @Autowired
     private ClientServ service;
 
     /**
@@ -41,7 +42,7 @@ public class ClientController {
      */
     @GetMapping("/clientes")
     public List<Client> getClientList() {
-        LOG.info("Devolviendo la lista de clientes...");
+       // LOG.info(">>>>>>>>>.Devolviendo la lista de clientes...");
         return service.findAll();
     }
 

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -44,7 +45,7 @@ public class OrderServImpl implements OrderServ {
     }
 
     @Override
-    public void deleteById(Integer id)  {
+    public void deleteById(Integer id) throws NoSuchElementException  {
         Optional<Order> optionalOrder= findById(id);
         Order order= optionalOrder.get();
         orderLineList= order.getLineasPedido();

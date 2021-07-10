@@ -58,7 +58,7 @@ public class ItemController {
      */
     @GetMapping("/articulos")
     List<Item> getItemList() {
-        LOG.info("Devolviendo la lista de articulos...");
+       // LOG.info("Devolviendo la lista de articulos...");
         return service.findAll();
     }
 
@@ -92,7 +92,7 @@ public class ItemController {
                 throw new UnprocessableEntityException(error.getDefaultMessage());
         try {
             service.save(newItem);
-            LOG.info("Se ha creado un nuevo articulo");
+            LOG.info(">>>>>>>>>>>>Se ha creado un nuevo articulo");
             return ResponseEntity.status(HttpStatus.OK).body("El articulo se ha creado correctamente");
         } catch (DataIntegrityViolationException e) {
             throw new UnprocessableEntityException(e.getRootCause().getMessage());

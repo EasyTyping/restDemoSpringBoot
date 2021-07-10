@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Controlador del servicio Rest para la clase Order
- * Atiende y procesa las peticiones Res de consulta, creacion, modificacion y borrado
+ * Atiende y procesa las peticiones  de consulta, creacion, modificacion y borrado
  * que tengan que ver con los pedidos
  * @author Jose F. Bejarano
  * @since 2021
@@ -39,7 +40,7 @@ public class OrderController {
      */
     @GetMapping("/pedidos")
     List<Order> getOrderList() {
-        LOG.info("Devolviendo la lista de pedidos...");
+    //    LOG.info(">>>>>>>> Devolviendo la lista de pedidos...");
         return service.findAll();
     }
 
@@ -88,7 +89,7 @@ public class OrderController {
     void  deleteOrder(@PathVariable Integer id) throws MyNotFoundException {
         try {
             service.deleteById(id);
-        }catch (EmptyResultDataAccessException e){
+        }catch (EmptyResultDataAccessException | NoSuchElementException e){
             throw new MyNotFoundException("No hay nada que borrar, la entidad con id "+ id + " no existe");
         }
     }

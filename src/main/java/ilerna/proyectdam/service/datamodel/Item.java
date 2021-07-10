@@ -1,5 +1,6 @@
 package ilerna.proyectdam.service.datamodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -37,8 +38,9 @@ public class Item implements java.io.Serializable {
     private Integer stock;
 
 
-    @JsonIgnoreProperties("articulo")
-    @OneToMany(mappedBy = "articulo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   // @JsonIgnoreProperties("articulo")
+    @JsonIgnore
+    @OneToMany(mappedBy = "articulo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderLine> lineas;
 
 
