@@ -11,6 +11,7 @@ The service is in the folder called "src/main/ilerna/projectdam", which contains
 PostgreSQL (v. 12.5) has been used, as DBMS. The necessary configuration for connecting the service to the DBMS is located in the application.properties file of the resources package. We can migrate from DBMS by changing the configuration parameters of said file and adding the necessary dependencies of Maven.
 
 The default configuration is:
+
       ## Connection - PostgreSQL
       spring.datasource.url = jdbc: postgresql: // localhost: 5432 / ProyectoDAM
       spring.datasource.username = 
@@ -40,7 +41,7 @@ To run it, from the project folder, which contains the pom.xml file:
   
 If we want to compile it with Maven, we open the command prompt and enter the following command in the folder that contains the Spring Boot files: 
 
-  C: \… \ proyectdam \ mvn clean install
+  	C: \… \ proyectdam \ mvn clean install
 
 With this we will have generated the file
 
