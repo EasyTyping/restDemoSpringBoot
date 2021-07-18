@@ -4,8 +4,8 @@ Academic project consisting of a rest service demo with SpringBoot and SpringDat
 To run the service locally the system will need:
 
 1. Microsoft Windows (64 bits). Versions 7, 8, 8.1 and 10.
-2. JDK version 1.8 must be installed. 
-3. PostgreSQL (v. 12.5) has been used, as DBMS
+2. JDK version 1.8 or greater must be installed. 
+3. PostgreSQL as DBMS
 
 The service is in the folder called "src/main/ilerna/projectdam", which contains the maven project. The application boot file is ProyectoFinalApplication.java.
 PostgreSQL (v. 12.5) has been used, as DBMS. The necessary configuration for connecting the service to the DBMS is located in the application.properties file of the resources package. We can migrate from DBMS by changing the configuration parameters of said file and adding the necessary dependencies of Maven.
