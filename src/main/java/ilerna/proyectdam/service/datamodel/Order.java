@@ -3,6 +3,9 @@ package ilerna.proyectdam.service.datamodel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +24,9 @@ import java.util.List;
  * @since 2020
  */
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "pedidos")
 public class Order implements Serializable {
 
@@ -59,8 +65,7 @@ public class Order implements Serializable {
 
 
     //*****************Constructores**************
-    public Order() {
-    }
+
     public Order(LocalDate fecha, Float ivaPedido, Float porcentajeIva, Float total, Client cliente, List<OrderLine> lineasPedido) {
         this.fecha = fecha;
         this.ivaPedido = ivaPedido;
@@ -85,64 +90,6 @@ public class Order implements Serializable {
         this.total = total;
         this.cliente = cliente;
         this.lineasPedido = lineasPedido;
-    }
-
-    //**********Getters & setters***************
-
-    public List<OrderLine> getLineasPedido() {
-        return lineasPedido;
-    }
-
-    public void setLineasPedido(List<OrderLine> detallesPedido) {
-        this.lineasPedido = detallesPedido;
-    }
-
-    public Client getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Client cliente) {
-        this.cliente = cliente;
-    }
-
-    public Integer getIdPedido() {
-        return idPedido;
-    }
-
-    public void setIdPedido(Integer idPedido) {
-        this.idPedido = idPedido;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public Float getIvaPedido() {
-        return ivaPedido;
-    }
-
-    public void setIvaPedido(Float ivaPedido) {
-        this.ivaPedido = ivaPedido;
-    }
-
-    public Float getPorcentajeIva() {
-        return porcentajeIva;
-    }
-
-    public void setPorcentajeIva(Float porcentajeIva) {
-        this.porcentajeIva = porcentajeIva;
-    }
-
-    public Float getTotal() {
-        return total;
-    }
-
-    public void setTotal(Float total) {
-        this.total = total;
     }
 
     @Override

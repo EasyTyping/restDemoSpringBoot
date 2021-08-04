@@ -2,6 +2,9 @@ package ilerna.proyectdam.service.datamodel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,6 +19,9 @@ import java.util.List;
  */
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "articulos")
 public class Item implements java.io.Serializable {
 
@@ -26,7 +32,6 @@ public class Item implements java.io.Serializable {
 
     @Column(length = 50)
     @NotBlank( message = "El nombre del articulo es obligatorio")
-   //@Pattern(regexp = "", message = "No se permiten caracteres especiales")
     private String nombreArticulo;
     @Column
     private String descripcion;
@@ -37,17 +42,11 @@ public class Item implements java.io.Serializable {
     @NotNull(message = "El stock no puede estar vacio, introduzca 0 unidades")
     private Integer stock;
 
-
    // @JsonIgnoreProperties("articulo")
     @JsonIgnore
     @OneToMany(mappedBy = "articulo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderLine> lineas;
 
-
-//************Constructores****************
-
-    public Item() {
-    }
 //Testing
     public Item(String nombreArticulo, String descripcion, Float precioUnidad, Integer stock) {
         this.nombreArticulo = nombreArticulo;
@@ -56,54 +55,6 @@ public class Item implements java.io.Serializable {
         this.stock = stock;
     }
 
-    //**********Getters & setters***************
-    public List<OrderLine> getLineas() {
-        return lineas;
-    }
-
-    public void setLineas(List<OrderLine> lineas) {
-        this.lineas = lineas;
-    }
-
-    public Integer getIdArticulo() {
-        return idArticulo;
-    }
-
-    public void setIdArticulo(Integer idArticulo) {
-        this.idArticulo = idArticulo;
-    }
-
-    public String getNombreArticulo() {
-        return nombreArticulo;
-    }
-
-    public void setNombreArticulo(String nombreArticulo) {
-        this.nombreArticulo = nombreArticulo;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Float getPrecioUnidad() {
-        return precioUnidad;
-    }
-
-    public void setPrecioUnidad(Float precioUnidad) {
-        this.precioUnidad = precioUnidad;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
 
 }
 

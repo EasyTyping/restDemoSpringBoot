@@ -1,9 +1,8 @@
 package ilerna.proyectdam.service;
 
 import ilerna.proyectdam.ProyectoFinalApplication;
-import ilerna.proyectdam.service.datamodel.Item;
 import ilerna.proyectdam.repository.ItemRepo;
-import jdk.nashorn.internal.runtime.logging.Logger;
+import ilerna.proyectdam.service.datamodel.Item;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +11,15 @@ import java.util.List;
 import java.util.Optional;
 
 
-
 @Service
 public class ItemServImpl implements ItemServ {
 
+    public ItemServImpl(ItemRepo repo) {
+        this.repo = repo;
+    }
+
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
-    @Autowired
+
     private ItemRepo repo;
 
     @Override

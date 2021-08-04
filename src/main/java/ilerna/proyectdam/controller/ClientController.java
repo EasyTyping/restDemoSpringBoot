@@ -69,7 +69,8 @@ public class ClientController {
      *                                      para que sea procesada por el Cliente del servicio
      */
     @PostMapping("/clientes")
-    ResponseEntity<String> newClient(@Valid @RequestBody Client newClient, BindingResult result) throws UnprocessableEntityException {
+    ResponseEntity<String> newClient(@Valid @RequestBody Client newClient, BindingResult result)
+            throws UnprocessableEntityException {
         if (result.hasErrors())
             for (FieldError error : result.getFieldErrors())
                 throw new UnprocessableEntityException(error.getDefaultMessage());
