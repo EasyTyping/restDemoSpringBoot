@@ -1,17 +1,10 @@
 package ilerna.proyectdam.service;
 
-import ilerna.proyectdam.exceptions.MyNotFoundException;
-import ilerna.proyectdam.exceptions.UnprocessableEntityException;
 import ilerna.proyectdam.repository.ItemRepo;
+import ilerna.proyectdam.repository.OrderRepo;
 import ilerna.proyectdam.service.datamodel.Item;
 import ilerna.proyectdam.service.datamodel.Order;
-import ilerna.proyectdam.repository.OrderRepo;
 import ilerna.proyectdam.service.datamodel.OrderLine;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +13,15 @@ import java.util.Optional;
 
 @Service
 public class OrderServImpl implements OrderServ {
-    @Autowired
-    private OrderRepo repo;
-    @Autowired
-    private ItemRepo repoItem;
+
+    private final OrderRepo repo;
+    private final ItemRepo repoItem;
     List<OrderLine> orderLineList;
+
+    public OrderServImpl(OrderRepo repo, ItemRepo repoItem) {
+        this.repo = repo;
+        this.repoItem = repoItem;
+    }
 
     @Override
     public List<Order> findAll() {
@@ -52,7 +49,7 @@ public class OrderServImpl implements OrderServ {
         Order order= optionalOrder.get();
         orderLineList= order.getLineasPedido();
         for(OrderLine line : orderLineList){
-            Item item= repoItem.findById(line.getArticulo().getIdArticulo()).get();//Optional<>
+            Item item= repoItem.findById(line.getArticulo().getIdArticulo()).get();
 //            System.out.println("Linea Cantidad: "+ line.getCantidad());
 //            System.out.println("Articulo: "+ item.getNombreArticulo() + "| Stock: " + item.getStock());
             item.setStock(item.getStock() + line.getCantidad());

@@ -5,6 +5,8 @@ import ilerna.proyectdam.exceptions.MyNotFoundException;
 import ilerna.proyectdam.exceptions.UnprocessableEntityException;
 import ilerna.proyectdam.service.datamodel.Client;
 import ilerna.proyectdam.service.ClientServ;
+import lombok.NoArgsConstructor;
+import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,56 +20,29 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Controlador del servicio Rest para la clase Client
- * Atiende y procesa las peticiones Res de consulta, creacion, modificacion y borrado
- * que tengan que ver con los clientes de la empresa
- *
- * @author Jose F. Bejarano
- * @version 1.0
- * @since 2021
- * Test Github
- */
-
 @RestController
+@NoArgsConstructor
+@Log
 public class ClientController {
 
-    private final static Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
-    @Autowired
     private ClientServ service;
 
-    /**
-     * Atiende las solicitudes de la lista completa de los clientes
-     * @return Lista de todos los clientes
-     */
+    @Autowired
+    public ClientController(ClientServ service) {
+        this.service = service;
+    }
+
     @GetMapping("/clientes")
     public List<Client> getClientList() {
-       // LOG.info(">>>>>>>>>.Devolviendo la lista de clientes...");
         return service.findAll();
     }
 
-    /**
-     * Atiende las peticiones Get de consulta de un Cliente por su id
-     * @param id - Identificador de Cliente
-     * @return Client  -   Cliente consultado
-     */
     @GetMapping("/clientes/{id}")
     public ResponseEntity<Object> getClient(@PathVariable Integer id) {
         return ResponseEntity.ok(service.findById(id)
                 .orElseThrow(() -> new MyNotFoundException("No se encuentra al cliente con id " + id)));
     }
 
-    /**
-     * Establece el endpoint que recibe y procesa las peticiones Post para la creacion de un nuevo Cliente
-     *
-     * @param newClient Objeto que proporciona la informacion del nuevo Cliente
-     * @param result    Objeto que recibe el resultado de la validacion de Hibernate
-     * @return ResponseEntity con valor TRUE si el Cliente ha sido creado en la BD
-     * @throws UnprocessableEntityException En caso de que los datos no cumplan con el formato indicado en las anotaciones,
-     *                                      no se devuelve la informacion completa del error generado por la validacion de Hibenate,
-     *                                      en su lugar se lanza una Excepcion personalizada con Status 422 y con el mensaje de Error establecido,
-     *                                      para que sea procesada por el Cliente del servicio
-     */
     @PostMapping("/clientes")
     ResponseEntity<String> newClient(@Valid @RequestBody Client newClient, BindingResult result)
             throws UnprocessableEntityException {
@@ -76,35 +51,18 @@ public class ClientController {
                 throw new UnprocessableEntityException(error.getDefaultMessage());
         try {
             service.save(newClient);
-            LOG.info("SERVER: Se ha creado un nuevo cliente");
+            log.info("SERVER: Se ha creado un nuevo cliente");
             return ResponseEntity.status(HttpStatus.OK).body("El cliente se ha creado correctamente");
         } catch (DataIntegrityViolationException e) {
-            LOG.error("Lanzando exception DataIntegrityViolation...");
+            log.warning("Lanzando exception DataIntegrityViolation...");
             throw new UnprocessableEntityException(e.getRootCause().getMessage());
         }
     }
 
-    /**
-     * Se encarga de atender las peticiones delete y borrar el Cliente cuyo id
-     * recibe como parametro
-     * @param id del Cliente a eliminar
-     * @return  si falla se devuelve: "No class ilerna.proyectdam.service.datamodel.Client entity with id 1 exists!"
-     */
     @DeleteMapping("/clientes/{id}")
     public void deleteClient(@PathVariable Integer id) { service.deleteById(id); }
 
-        /**
-         * Atiende las peticiones Put para la modificacion de un Cliente existente
-         * @param id        del Cliente que se quiere modificar
-         * @param newClient Objeto que proporciona la informacion del nuevo Cliente
-         * @param result    Objeto que recibe el resultado de la validacion de Hibernate
-         * @return TRUE si el Cliente ha sido creado en la BD
-         * @throws UnprocessableEntityException En caso de que los datos no cumplan con el formato indicado en las anotaciones,
-         *                                      no se devuelve la informacion completa del error generado por la validacion de Hibenate,
-         *                                      en su lugar se lanza una Excepcion personalizada con Status 422 y con el mensaje de Error establecido,
-         *                                      para que sea procesada por el Cliente del servicio
-         * @throws MyNotFoundException          excepcion lanzada cuando no se encuentra el Cliente que se desea actualizar
-         */
+
         @PutMapping("/clientes/{id}")
         public ResponseEntity<String> replaceClient (@Valid @RequestBody Client newClient, BindingResult result,
                 @PathVariable Integer id) throws UnprocessableEntityException, MyNotFoundException {

@@ -1,5 +1,6 @@
 package ilerna.proyectdam.service;
 
+import ilerna.proyectdam.repository.ItemRepo;
 import ilerna.proyectdam.service.datamodel.Client;
 import ilerna.proyectdam.repository.ClientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import java.util.Optional;
 @Service
 public class ClientServImpl implements ClientServ {
 
-    @Autowired
     private ClientRepo repo;
+    public ClientServImpl(ClientRepo repo) {
+        this.repo = repo;
+    }
 
     @Override
     public List<Client> findAll() {
@@ -31,7 +34,6 @@ public class ClientServImpl implements ClientServ {
 
     @Override
     public void deleteById(Integer id) {
-        System.out.println(">>>>>>>>>>>>> Borrando cliente");
         repo.deleteById(id);
     }
 }

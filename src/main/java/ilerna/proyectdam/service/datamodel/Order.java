@@ -18,8 +18,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Entidad de persistencia para la tabla pedidos
- *
  * @author Jose F. Bejarano
  * @since 2020
  */
@@ -30,7 +28,6 @@ import java.util.List;
 @Table(name = "pedidos")
 public class Order implements Serializable {
 
-    //************Propiedades******************
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer idPedido;
@@ -50,7 +47,6 @@ public class Order implements Serializable {
     @NotNull( message = "El total del pedido está vacío")
     private Float total;
 
-
     //Relacion N..1
     @JsonIgnoreProperties("listaPedidos")
     @ManyToOne
@@ -63,9 +59,6 @@ public class Order implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<OrderLine> lineasPedido;
 
-
-    //*****************Constructores**************
-
     public Order(LocalDate fecha, Float ivaPedido, Float porcentajeIva, Float total, Client cliente, List<OrderLine> lineasPedido) {
         this.fecha = fecha;
         this.ivaPedido = ivaPedido;
@@ -74,7 +67,7 @@ public class Order implements Serializable {
         this.cliente = cliente;
         this.lineasPedido = lineasPedido;
     }
-    //Testing
+    //Testing Constructors
     public Order(Float total, Client cliente, LocalDate fecha) {
         this.total = total;
         this.cliente = cliente;

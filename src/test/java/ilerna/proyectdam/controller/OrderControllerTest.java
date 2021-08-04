@@ -8,6 +8,7 @@ import ilerna.proyectdam.service.datamodel.Item;
 import ilerna.proyectdam.service.datamodel.Order;
 import ilerna.proyectdam.repository.OrderRepo;
 import ilerna.proyectdam.service.OrderServ;
+import lombok.extern.java.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,9 +34,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(OrderController.class)
 @DisplayName("Testeando endpoints en OrderController")
+@Log
 class OrderControllerTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProyectoFinalApplication.class);
     private static final String URL = "/pedidos";
 
     @Autowired
@@ -61,9 +62,9 @@ class OrderControllerTest {
 
         assertThat("El pedido se ha creado correctamente").isEqualTo(result.getResponse().getContentAsString());
 
-        LOG.info(result.getResponse().getContentAsString());
-        //    LOG.info(String.valueOf(result.getResolvedException()));
-        LOG.info(String.valueOf(result.getResponse().getStatus()));
+        log.info(result.getResponse().getContentAsString());
+        //    log.info(String.valueOf(result.getResolvedException()));
+        log.info(String.valueOf(result.getResponse().getStatus()));
     }
 
     @Test
@@ -81,13 +82,13 @@ class OrderControllerTest {
         //  RequestBuilder request = MockMvcRequestBuilders.get(URL);
         MvcResult result = mockMvc.perform(get(URL)).andExpect(status().isOk()).andReturn();
         String actualResponse = result.getResponse().getContentAsString();
-        LOG.info(actualResponse);
+        log.info(actualResponse);
 
         String expectedJsonResponse = mapper.writeValueAsString(orderList);
-        LOG.info(expectedJsonResponse);
+        log.info(expectedJsonResponse);
 
         assertThat(actualResponse).isEqualToIgnoringWhitespace(expectedJsonResponse);
-        LOG.info("Status de la Respuesta: " + result.getResponse().getStatus());
+        log.info("Status de la Respuesta: " + result.getResponse().getStatus());
     }
 
     @Test
@@ -102,14 +103,14 @@ class OrderControllerTest {
         //  RequestBuilder request = MockMvcRequestBuilders.get(URL);
         MvcResult result = mockMvc.perform(get(URL+"/"+ id)).andExpect(status().isOk()).andReturn();
         String actualResponse = result.getResponse().getContentAsString();
-        LOG.info(actualResponse);
+        log.info(actualResponse);
 
         String expectedJsonResponse = mapper.writeValueAsString(java.util.Optional.of(order));
-        LOG.info(expectedJsonResponse);
+        log.info(expectedJsonResponse);
 
         assertThat(actualResponse).isEqualToIgnoringWhitespace(expectedJsonResponse);
-        LOG.info("Status de la Respuesta: " + result.getResponse().getStatus());
-        LOG.info("Se ha obtenido el articulo con id: "+ id);
+        log.info("Status de la Respuesta: " + result.getResponse().getStatus());
+        log.info("Se ha obtenido el articulo con id: "+ id);
     }
 
 
@@ -146,9 +147,9 @@ class OrderControllerTest {
         ).andExpect(status().is4xxClientError()).andReturn();
 
         assertThat(HttpStatus.UNPROCESSABLE_ENTITY.value()).isEqualTo(result.getResponse().getStatus());
-        LOG.warn("Status http de la respuesta: "+ result.getResponse().getStatus());
+        log.warning("Status http de la respuesta: "+ result.getResponse().getStatus());
         assertThat(UnprocessableEntityException.class).isEqualTo(result.getResolvedException().getClass());
-        LOG.warn("Tipo de excepcion: " + result.getResolvedException().getClass());
+        log.warning("Tipo de excepcion: " + result.getResolvedException().getClass());
         assertThat("La fecha del pedido no puede ser anterior a hoy").isEqualTo(result.getResolvedException().getMessage());
     }
 
@@ -168,6 +169,6 @@ class OrderControllerTest {
         assertThat(HttpStatus.NOT_FOUND.value()).isEqualTo(result.getResponse().getStatus());
         assertThat(MyNotFoundException.class).isEqualTo(result.getResolvedException().getClass());
         assertThat("No se encuentra el pedido con id " + idOrder).isEqualTo(result.getResolvedException().getMessage());
-        LOG.info(result.getResolvedException().getMessage());
+        log.info(result.getResolvedException().getMessage());
     }
 }
