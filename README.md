@@ -1,4 +1,5 @@
-# SpringBoot Rest Service Demo
+#  Api Rest Demo with SpringBoot :memo:
+---
 Academic project consisting of a rest service demo with SpringBoot and SpringDataJPA.
 
 To run the service locally the system will need:
