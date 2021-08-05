@@ -1,4 +1,4 @@
-#  Api Rest Demo with SpringBoot :memo:
+#  Api rest demo with SpringBoot :memo:
 ---
 Academic project consisting of a rest service demo with SpringBoot and SpringDataJPA.
 
