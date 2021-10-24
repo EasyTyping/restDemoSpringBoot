@@ -1,6 +1,6 @@
-#  Api rest demo with SpringBoot :memo:
+#  Academic proyect. Monolithic Api rest demo with SpringBoot :memo:
 ---
-Academic project consisting of a rest service demo with SpringBoot and SpringDataJPA.
+Academic project consisting of a monolithic rest service demo with Spring Boot and Spring Data JPA.
 
 To run the service locally the system will need:
 
