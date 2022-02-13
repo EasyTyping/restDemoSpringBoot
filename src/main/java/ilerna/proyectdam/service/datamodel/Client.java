@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * @author Jose F. Bejarano
  * @since 2020
+ * bla bla
  */
 
 @Entity
